@@ -7,7 +7,6 @@ export async function getServerSideProps() {
   const jsonData = await fs.readFile(filePath, 'utf-8');
   const data = JSON.parse(jsonData);
 
-  // Load genres from the file directly
   const genres = data.genres || [];
 
   return {
@@ -19,20 +18,23 @@ export async function getServerSideProps() {
 
 export default function GenresPage({ genres }) {
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Browse Genres</h1>
-      <ul className="space-y-2">
-        {genres.map((genre) => (
-          <li key={genre.id}>
-            <Link
-              href={`/genres/${genre.id}`}
-              className="text-blue-600 hover:underline"
-            >
-              {genre.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="min-h-screen bg-white text-blue-900 py-10">
+      <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold text-blue-600 mb-6 text-center">Browse Genres</h1>
+        
+        <ul className="space-y-4">
+          {genres.map((genre) => (
+            <li key={genre.id} className="text-center">
+              <Link
+                href={`/genres/${genre.id}`}
+                className="text-blue-600 hover:underline text-lg font-semibold"
+              >
+                {genre.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -43,7 +43,7 @@ export default function HelpPage() {
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-2">Page Not Found</h1>
         <p className="mb-4">The help topic you're looking for does not exist.</p>
-        <Link href="/help" className="text-blue-600 hover:underline">← Back to Help</Link>
+        <Link href="/" className="text-blue-600 hover:underline">← Back to Home</Link>
       </div>
     );
   }
@@ -52,7 +52,7 @@ export default function HelpPage() {
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">{page.title}</h1>
       <p className="mb-6">{page.content}</p>
-      <Link href="/help" className="text-blue-600 hover:underline">← Back to Help</Link>
+      <Link href="/" className="text-blue-600 hover:underline">← Back to Home</Link>
     </div>
   );
 }

@@ -9,27 +9,27 @@ export async function getStaticProps() {
     const filePath = path.join(process.cwd(), 'data', 'movies.json');
 
     // Read the JSON file
-    const jsonData = await fs.readFile(filePath, 'utf-8');
+    const jsonData = await fs.readFile(filePath);
 
     // Parse JSON data
     const data = JSON.parse(jsonData);
 
     return {
       props: {
-        data, // Pass the data as props to the component
+        data, 
       },
     };
   } catch (error) {
     console.error('Error reading movies data:', error);
     return {
-      notFound: true, // If error occurs, return 404 page
+      notFound: true, 
     };
   }
 }
 
-// Directors Page
+
 export default function DirectorsPage({ data }) {
-  // Extract directors data from the movie data
+  
   const directors = data.directors;
 
   return (
@@ -38,7 +38,7 @@ export default function DirectorsPage({ data }) {
 
       <div className="space-y-4">
         {directors.map((director) => {
-          // Find all movies directed by this director
+         
           const moviesDirected = data.movies.filter((movie) => movie.directorId === director.id);
 
           return (

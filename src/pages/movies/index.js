@@ -26,9 +26,9 @@ export default function MoviesPage({ allMovies }) {
   const router = useRouter();
   const [selectedGenre, setSelectedGenre] = useState("All");
 
-  // Get unique genres from the movies data
+  
   const genres = Array.from(
-    new Set(allMovies.flatMap((movie) => movie.genreId)) // Collect all genreIds
+    new Set(allMovies.flatMap((movie) => movie.genreId)) 
   );
   
   const genreNames = {
@@ -40,7 +40,7 @@ export default function MoviesPage({ allMovies }) {
 
   const genreOptions = ["All", ...genres.map((genreId) => genreNames[genreId] || genreId)];
 
-  // Filter movies by selected genre
+  
   const filteredMovies =
     selectedGenre === "All"
       ? allMovies
@@ -50,7 +50,7 @@ export default function MoviesPage({ allMovies }) {
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">All Movies</h1>
 
-      {/* Genre Filter */}
+   
       <div className="mb-6">
         <label htmlFor="genre" className="mr-2 font-semibold">Filter by Genre:</label>
         <select
@@ -65,7 +65,7 @@ export default function MoviesPage({ allMovies }) {
         </select>
       </div>
 
-      {/* Movie Cards */}
+      
       {filteredMovies.length === 0 ? (
         <p>No movies found for this genre.</p>
       ) : (
