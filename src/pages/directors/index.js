@@ -52,6 +52,7 @@ export default function DirectorsPage({ data }) {
 {moviesDirected.map((movie) => (
   <li key={movie.id}>
     <Link href={`/movies/${movie.id}`} className="text-blue-600 hover:underline">
+
       {movie.title}
     </Link>
   </li>
