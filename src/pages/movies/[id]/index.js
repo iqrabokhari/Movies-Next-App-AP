@@ -1,44 +1,28 @@
-import fs from 'fs/promises';
-import path from 'path';
 import Link from 'next/link';
+import { fetchAllMovies, fetchMovieById } from '../../api/movies/dbHelpers'; // adjust path as needed
 
 export async function getStaticPaths() {
-  const filePath = path.join(process.cwd(), 'data', 'movies.json');
-  const jsonData = await fs.readFile(filePath, 'utf-8');
-  const data = JSON.parse(jsonData);
+  const movies = await fetchAllMovies();
 
-  const paths = data.movies.map((movie) => ({
+  const paths = movies.map((movie) => ({
     params: { id: movie.id },
   }));
 
   return {
     paths,
-    fallback: 'blocking', // for ISR and fallback support
+    fallback: 'blocking',
   };
 }
 
 export async function getStaticProps(context) {
   const { id } = context.params;
+  const movie = await fetchMovieById(id);
 
-  const filePath = path.join(process.cwd(), 'data', 'movies.json');
-  const jsonData = await fs.readFile(filePath, 'utf-8');
-  const data = JSON.parse(jsonData);
-
-  const movie = data.movies.find((m) => m.id === id);
-  const genre = data.genres.find((g) => g.id === movie?.genreId);
-  const director = data.directors.find((d) => d.id === movie?.directorId);
-
-  if (!movie) {
-    return { notFound: true };
-  }
+  if (!movie) return { notFound: true };
 
   return {
-    props: {
-      movie,
-      genre: genre?.name || 'Unknown',
-      directorName: director?.name || 'Unknown',
-    },
-    revalidate: 10, // ISR
+    props: { movie },
+    revalidate: 10,
   };
 }
 

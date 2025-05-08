@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const helpContent = {
-  faqs: {
+  faq: {
     title: 'Frequently Asked Questions',
     content: 'Here are some common questions and answers...',
   },
@@ -27,7 +27,7 @@ export default function HelpPage() {
         <h1 className="text-3xl font-bold mb-4">Help Center</h1>
         <p className="mb-4">How can we assist you today?</p>
         <ul className="list-disc pl-6 space-y-1">
-          <li><Link href="/help/faqs" className="text-blue-600 hover:underline">FAQs</Link></li>
+          <li><Link href="/help/faq" className="text-blue-600 hover:underline">FAQs</Link></li>
           <li><Link href="/help/contact" className="text-blue-600 hover:underline">Contact Us</Link></li>
           <li><Link href="/help/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link></li>
         </ul>
@@ -35,7 +35,7 @@ export default function HelpPage() {
     );
   }
 
-  const pageKey = slug[0]; // just the first part, like 'faqs' or 'contact'
+  const pageKey = slug[0]; 
   const page = helpContent[pageKey];
 
   if (!page) {

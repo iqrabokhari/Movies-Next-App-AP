@@ -1,18 +1,11 @@
-import fs from 'fs/promises';
-import path from 'path';
 import Link from 'next/link';
+import { fetchGenreWithMovies } from '../api/genres/[id]'; // Adjust the import path as necessary
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
 
-  const filePath = path.join(process.cwd(), 'data', 'movies.json');
-  const jsonData = await fs.readFile(filePath, 'utf-8');
-  const data = JSON.parse(jsonData);
-
-  const genre = data.genres.find((g) => g.id === id);
-  const filteredMovies = data.movies.filter((movie) => movie.genreId === id);
-
-  if (!genre) {
+  const result = await fetchGenreWithMovies(id);
+  if (!result) {
     return {
       notFound: true,
     };
@@ -20,8 +13,8 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      genreName: genre.name,
-      movies: filteredMovies,
+      genreName: result.genreName,
+      movies: result.movies,
     },
   };
 }

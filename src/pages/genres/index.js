@@ -1,13 +1,8 @@
-import fs from 'fs/promises';
-import path from 'path';
 import Link from 'next/link';
+import { fetchAllGenres }  from '../api/genres/[id]'; ;
 
 export async function getServerSideProps() {
-  const filePath = path.join(process.cwd(), 'data', 'movies.json');
-  const jsonData = await fs.readFile(filePath, 'utf-8');
-  const data = JSON.parse(jsonData);
-
-  const genres = data.genres || [];
+  const genres = await fetchAllGenres();
 
   return {
     props: {

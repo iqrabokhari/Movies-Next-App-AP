@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import path from 'path';
-import fs from 'fs/promises';
+import { getMovieData } from '../../../lib/Data.js';
 
 export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), 'data', 'movies.json');
   let allMovies = [];
 
   try {
-    const jsonData = await fs.readFile(filePath);
-    allMovies = JSON.parse(jsonData).movies || [];
+    const data = await getMovieData();
+    allMovies = data.movies;
   } catch (error) {
-    console.error('Error loading movie data:', error);
+    console.error('Error loading movie data from DB:', error);
   }
 
   return {
@@ -26,11 +24,10 @@ export default function MoviesPage({ allMovies }) {
   const router = useRouter();
   const [selectedGenre, setSelectedGenre] = useState("All");
 
-  
   const genres = Array.from(
-    new Set(allMovies.flatMap((movie) => movie.genreId)) 
+    new Set(allMovies.flatMap((movie) => movie.genreId))
   );
-  
+
   const genreNames = {
     g1: "Science Fiction",
     g3: "Adventure",
@@ -40,7 +37,6 @@ export default function MoviesPage({ allMovies }) {
 
   const genreOptions = ["All", ...genres.map((genreId) => genreNames[genreId] || genreId)];
 
-  
   const filteredMovies =
     selectedGenre === "All"
       ? allMovies
@@ -50,7 +46,6 @@ export default function MoviesPage({ allMovies }) {
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6">All Movies</h1>
 
-   
       <div className="mb-6">
         <label htmlFor="genre" className="mr-2 font-semibold">Filter by Genre:</label>
         <select
@@ -65,7 +60,6 @@ export default function MoviesPage({ allMovies }) {
         </select>
       </div>
 
-      
       {filteredMovies.length === 0 ? (
         <p>No movies found for this genre.</p>
       ) : (
