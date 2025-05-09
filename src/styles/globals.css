@@ -24,3 +24,34 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+body {
+  background-color: #f7fafc; /* light background */
+  color: #1a202c; /* dark text color */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode background and text */
+.dark body {
+  background-color: #2d3748; /* dark background */
+  color: #e2e8f0; /* light text color */
+}
+
+/* Optional: Set background for your main element if needed */
+main {
+  transition: background-color 0.3s ease;
+}
+
+.dark main {
+  background-color: #1a202c; /* Dark background for the main section */
+}
+
+/* If you want to change other elements' colors too, you can add more styles */
+.dark .bg-blue-700 {
+  background-color: #2d3748; /* Darker blue for navbar */
+}
+
+.dark .text-white {
+  color: #e2e8f0; /* Lighter text color for navbar */
+}

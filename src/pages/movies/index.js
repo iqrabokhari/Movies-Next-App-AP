@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { getMovieData } from '../../../lib/Data.js';
+import { getMovieData } from '../../../lib/data.js';
 
 export async function getStaticProps() {
   let allMovies = [];
